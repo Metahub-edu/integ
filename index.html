@@ -1,1 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Метахаб</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #4a90e2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #4a90e2;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            background: #4a90e2;
+            color: white;
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+
+        /* Content Area */
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .content h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 32px;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #4a90e2;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 30px;
+            min-height: 120px;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .card:hover {
+            border-color: #4a90e2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .hierarchy {
+            list-style: none;
+        }
+
+        .hierarchy li {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f0f4f8;
+            border-radius: 6px;
+            border-left: 3px solid #4a90e2;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .hierarchy li::before {
+            content: "↓";
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #4a90e2;
+            font-weight: bold;
+        }
+
+        .hierarchy li:last-child::before {
+            display: none;
+        }
+
+        .hierarchy .level-1 { border-left-color: #e74c3c; background: #fdf2f2; }
+        .hierarchy .level-2 { border-left-color: #f39c12; background: #fef9e7; margin-left: 10px; }
+        .hierarchy .level-3 { border-left-color: #27ae60; background: #eafaf1; margin-left: 20px; }
+        .hierarchy .level-4 { border-left-color: #9b59b6; background: #f5eef8; margin-left: 30px; }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">ЛОГО</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">Методика</a></li>
+                    <li><a href="#">Цифровизация</a></li>
+                    <li><a href="#">Ресурсы</a></li>
+                    <li><a href="#">О проекте</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="main-layout">
+            <main class="content">
+                <h1>Метахаб</h1>
+                <div class="description">
+                    Интегрирование методических и цифровых инструментов, объединяющих формирование ресурсов, идей и экспертизу модернизации педагогических образовательных компетенций
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <h3 style="margin-bottom: 20px; color: #2c3e50;">Иерархия</h3>
+                <ul class="hierarchy">
+                    <li class="level-1">НПА</li>
+                    <li class="level-1">Педагоги</li>
+                    <li class="level-2">Компетенции</li>
+                    <li class="level-2">Профстандарт</li>
+                    <li class="level-3">Категории</li>
+                    <li class="level-3">Критерии</li>
+                    <li class="level-4">Индикаторы</li>
+                    <li class="level-4">Эксперт</li>
+                    <li class="level-4">Портфолио</li>
+                    <li class="level-4">Методика</li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>
