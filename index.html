@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Метахаб</title>
+    <title>Метахаб — образовательная экосистема</title>
     <style>
         * {
             margin: 0;
@@ -13,15 +13,32 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #9f7aea 100%);
+            min-height: 100vh;
+            color: #2d3748;
             line-height: 1.6;
+            position: relative;
+        }
+
+        /* Декоративный фон с паттерном */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><path d="M10 10 L90 10 L90 90 L10 90 Z" fill="none" stroke="white" stroke-width="0.5"/><circle cx="50" cy="50" r="5" fill="white"/></svg>') repeat;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         /* Header */
@@ -31,157 +48,385 @@
             gap: 30px;
             margin-bottom: 30px;
             padding: 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
         }
 
         .logo {
-            width: 80px;
-            height: 80px;
-            border: 3px solid #4a90e2;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #4a90e2;
-            font-size: 14px;
-            flex-shrink: 0;
+            width: 125px;
+            height: 125px;
+            background-image: url('logo.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+            position: relative;
         }
 
-        nav ul {
+        /* Плейсхолдер для логотипа, если нет изображения */
+        .logo::after {
+            content: '📚';
+            font-size: 60px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.5;
+            display: none;
+        }
+
+        .logo:not([style*="background-image"])::after {
+            display: block;
+        }
+
+        .events-button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 101;
+        }
+
+        .events-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        }
+
+        /* Right Navigation */
+        .right-nav {
+            margin-left: auto;
+            position: relative;
+            z-index: 200;
+        }
+
+        .right-nav ul {
             display: flex;
-            gap: 25px;
+            gap: 15px;
             list-style: none;
         }
 
-        nav a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: all 0.3s;
+        .nav-item {
+            position: relative;
+            z-index: 250;
         }
 
-        nav a:hover {
-            background: #4a90e2;
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 40px;
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            position: relative;
+            z-index: 260;
+        }
+
+        .nav-button:hover {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-color: #8b5cf6;
+            color: #4f46e5;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(79, 70, 229, 0.15);
+        }
+
+        .nav-button:hover .arrow {
+            border-color: #4f46e5;
+        }
+
+        .arrow {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: solid #64748b;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            transition: all 0.3s;
+            margin-left: 5px;
+        }
+
+        .nav-button.active {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
             color: white;
+            border-color: transparent;
+        }
+
+        .nav-button.active .arrow {
+            border-color: white;
+            transform: rotate(-135deg);
+            margin-top: 5px;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 12px 0;
+            min-width: 240px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 14px 28px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #334155;
+            font-size: 15px;
+            border-left: 3px solid transparent;
+            font-weight: 500;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(90deg, #f0f9ff 0%, #ffffff 100%);
+            border-left-color: #8b5cf6;
+            color: #4f46e5;
+            transform: translateX(5px);
         }
 
         /* Main Layout */
         .main-layout {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 30px;
+            display: block;
+            width: 100%;
+            position: relative;
+            z-index: 10;
         }
 
         /* Content Area */
         .content {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15), 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            position: relative;
+            z-index: 20;
         }
 
         .content h1 {
-            color: #2c3e50;
-            margin-bottom: 20px;
+            color: #1e293b;
+            margin-bottom: 40px;
             font-size: 32px;
-            border-bottom: 3px solid #4a90e2;
-            padding-bottom: 10px;
-            display: inline-block;
+            font-weight: 700;
+            line-height: 1.4;
+            position: relative;
+            padding-left: 20px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            z-index: 21;
         }
 
-        .description {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.8;
-            background: #f8f9fa;
-            padding: 20px;
-            border-left: 4px solid #4a90e2;
-            border-radius: 0 8px 8px 0;
+        .content h1::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 80%;
+            background: linear-gradient(135deg, #4f46e5, #c084fc);
+            border-radius: 5px;
+            z-index: 22;
         }
 
-        /* Cards Grid */
+        /* Cards Grid - 3 колонки */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 24;
         }
 
+        /* Карточка с фото и информацией */
         .card {
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 30px;
-            min-height: 120px;
-            transition: all 0.3s;
-            background: #fafafa;
+            background: white;
+            border-radius: 24px;
+            padding: 25px 20px 20px 20px;
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            z-index: 25;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .card:hover {
-            border-color: #4a90e2;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 40px rgba(79, 70, 229, 0.15);
+            border-color: #c084fc;
         }
 
-        /* Sidebar */
-        .sidebar {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            height: fit-content;
-        }
-
-        .hierarchy {
-            list-style: none;
-        }
-
-        .hierarchy li {
-            margin-bottom: 15px;
-            padding: 12px;
-            background: #f0f4f8;
-            border-radius: 6px;
-            border-left: 3px solid #4a90e2;
-            font-size: 14px;
-            position: relative;
-        }
-
-        .hierarchy li::before {
-            content: "↓";
+        /* Декоративная полоска сверху */
+        .card::before {
+            content: '';
             position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #4a90e2;
-            font-weight: bold;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4f46e5, #c084fc, #f472b6);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+            z-index: 26;
         }
 
-        .hierarchy li:last-child::before {
-            display: none;
+        .card:hover::before {
+            transform: translateX(0);
         }
 
-        .hierarchy .level-1 { border-left-color: #e74c3c; background: #fdf2f2; }
-        .hierarchy .level-2 { border-left-color: #f39c12; background: #fef9e7; margin-left: 10px; }
-        .hierarchy .level-3 { border-left-color: #27ae60; background: #eafaf1; margin-left: 20px; }
-        .hierarchy .level-4 { border-left-color: #9b59b6; background: #f5eef8; margin-left: 30px; }
+        /* Фото профиля */
+        .card-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            background: linear-gradient(135deg, #e0e7ff, #ede9fe);
+        }
 
-        /* Responsive */
-        @media (max-width: 968px) {
-            .main-layout {
-                grid-template-columns: 1fr;
+        .card:hover .card-photo {
+            transform: scale(1.05);
+            border-color: #8b5cf6;
+            box-shadow: 0 15px 35px rgba(79, 70, 229, 0.3);
+        }
+
+        /* ФИО жирным шрифтом */
+        .card-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        /* Информация о человеке */
+        .card-info {
+            font-size: 16px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            padding: 0 10px;
+        }
+
+        /* Дополнительная иконка/метка */
+        .card-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: #0369a1;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-            
+        }
+
+        @media (max-width: 768px) {
             .cards-grid {
                 grid-template-columns: 1fr;
             }
             
-            nav ul {
+            .card-photo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .card-name {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 968px) {
+            header {
                 flex-wrap: wrap;
-                gap: 10px;
+            }
+            
+            .logo-section {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .right-nav {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .right-nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .content h1 {
+                font-size: 24px;
+                padding-left: 15px;
             }
         }
     </style>
@@ -189,51 +434,143 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">ЛОГО</div>
-            <nav>
+            <div class="logo-section">
+                <div class="logo"></div>
+                <button class="events-button">Мероприятия</button>
+            </div>
+            
+            <nav class="right-nav">
                 <ul>
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">Методика</a></li>
-                    <li><a href="#">Цифровизация</a></li>
-                    <li><a href="#">Ресурсы</a></li>
-                    <li><a href="#">О проекте</a></li>
+                    <li class="nav-item">
+                        <button class="nav-button" onclick="toggleDropdown('npa')">
+                            НПА
+                            <span class="arrow"></span>
+                        </button>
+                        <div id="dropdown-npa" class="dropdown-menu">
+                            <div class="dropdown-item">Закон "Об образовании"</div>
+                            <div class="dropdown-item">Государственная программа</div>
+                            <div class="dropdown-item">Трудовой кодекс</div>
+                            <div class="dropdown-item">Квалификационный справочник</div>
+                            <div class="dropdown-item">Приказы МОН</div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-button" onclick="toggleDropdown('pedagogi')">
+                            Педагоги
+                            <span class="arrow"></span>
+                        </button>
+                        <div id="dropdown-pedagogi" class="dropdown-menu">
+                            <div class="dropdown-item">Педагог-модератор</div>
+                            <div class="dropdown-item">Педагог-эксперт</div>
+                            <div class="dropdown-item">Педагог-исследователь</div>
+                            <div class="dropdown-item">Педагог-мастер</div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-button" onclick="toggleDropdown('zam')">
+                            Заместитель руководителя
+                            <span class="arrow"></span>
+                        </button>
+                        <div id="dropdown-zam" class="dropdown-menu">
+                            <div class="dropdown-item">1-категория</div>
+                            <div class="dropdown-item">2-категория</div>
+                            <div class="dropdown-item">3-категория</div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-button" onclick="toggleDropdown('rukovoditel')">
+                            Руководитель организации образования
+                            <span class="arrow"></span>
+                        </button>
+                        <div id="dropdown-rukovoditel" class="dropdown-menu">
+                            <div class="dropdown-item">1-категория</div>
+                            <div class="dropdown-item">2-категория</div>
+                            <div class="dropdown-item">3-категория</div>
+                        </div>
+                    </li>
                 </ul>
             </nav>
         </header>
 
         <div class="main-layout">
             <main class="content">
-                <h1>Метахаб</h1>
-                <div class="description">
-                    Интегрирование методических и цифровых инструментов, объединяющих формирование ресурсов, идей и экспертизу модернизации педагогических образовательных компетенций
-                </div>
+                <h1>Метахаб — интегрированная методическая и цифровая платформа, объединяющая образовательные ресурсы, инновационные практики и экспертную поддержку педагогов для развития современных образовательных компетенций.</h1>
                 
+                <!-- Карточки с фото и информацией - 3 в ряд -->
                 <div class="cards-grid">
-                    <div class="card"></div>
-                    <div class="card"></div>
-                    <div class="card"></div>
-                    <div class="card"></div>
-                    <div class="card"></div>
-                    <div class="card"></div>
+                    <!-- Карточка 1 -->
+                    <div class="card">
+                        <img class="card-photo" src="3.jpeg" alt="Фото Анны Смирновой">
+                        <div class="card-name">Сагандыкова Менгуль Нурлыкановна</div>
+                        <div class="card-info"> Заместитель директора I категории по учебно-методической работе КГКП «Колледж принтмедиа технологий», автор учебных пособий и профессиональных стандартов по издательско-полиграфическому направлению. Эксперт международных профессиональных стандартов, академик Национальной академии дизайна, член Евразийского союза дизайнеров, член Отраслевого совета при Министерстве культуры и информации Республики Казахстан.
+Обладает высоким уровнем профессионализма, стратегическим мышлением и организаторскими способностями. Отличается ответственностью, инициативностью и стремлением к развитию системы профессионального образования, активно участвует в разработке образовательных программ и внедрении современных стандартов подготовки специалистов в сфере дизайна и полиграфии.</div>
+                    </div>
+                    
+                    <!-- Карточка 2 -->
+                    <div class="card">
+                        <img class="card-photo" src="2.jpeg" alt="Фото Дмитрия Иванова">
+                        <div class="card-name">Аганина Галина Викторовна</div>
+                        <div class="card-info">Заместитель директора второй квалификационной категории по учебно-методической работе Алматинского колледжа моды и сферы обслуживания. Педагог-исследователь специальных дисциплин по специальности «Парикмахерское искусство», магистр по специальности «Менеджмент», психолог.
+Автор профессиональных стандартов по направлениям «Услуги в сфере бьюти-индустрии» и «Малый и средний бизнес: сквозные профессии».
+Эксперт аттестационной комиссии педагогических работников, активно участвует в развитии методической работы, разработке образовательных программ и реализации образовательных и профессиональных проектов. Обладает значительным опытом в сфере профессионального образования, подготовки специалистов индустрии красоты и внедрения современных образовательных практик.</div>
+                    </div>
+                    
+                    <!-- Карточка 3 -->
+                    <div class="card">
+                        <img class="card-photo" src="1.jpeg" alt="Фото Елены Комаровой">
+                        <div class="card-name">Койшина Мая Сакеновна</div>
+                        <div class="card-info">Заместитель директора по учебной работе КГКП «Костанайский колледж сферы обслуживания», заместитель руководителя I категории, преподаватель специальных дисциплин художественно-технологического направления, педагог-исследователь. Педагогический стаж — 28 лет. Обладает  богатым педагогическим опытом и управленческими навыками, активно участвует в совершенствовании образовательного процесса и развитии системы профессионального образования.
+                    </div>
                 </div>
             </main>
-
-            <aside class="sidebar">
-                <h3 style="margin-bottom: 20px; color: #2c3e50;">Иерархия</h3>
-                <ul class="hierarchy">
-                    <li class="level-1">НПА</li>
-                    <li class="level-1">Педагоги</li>
-                    <li class="level-2">Компетенции</li>
-                    <li class="level-2">Профстандарт</li>
-                    <li class="level-3">Категории</li>
-                    <li class="level-3">Критерии</li>
-                    <li class="level-4">Индикаторы</li>
-                    <li class="level-4">Эксперт</li>
-                    <li class="level-4">Портфолио</li>
-                    <li class="level-4">Методика</li>
-                </ul>
-            </aside>
         </div>
     </div>
+
+    <script>
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(`dropdown-${id}`);
+            const button = event.currentTarget;
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                if (menu.id !== `dropdown-${id}`) {
+                    menu.classList.remove('show');
+                }
+            });
+            
+            document.querySelectorAll('.nav-button').forEach(btn => {
+                if (btn !== button) {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Toggle current dropdown
+            dropdown.classList.toggle('show');
+            button.classList.toggle('active');
+            
+            // Close dropdown when clicking outside
+            if (dropdown.classList.contains('show')) {
+                document.addEventListener('click', function closeDropdown(e) {
+                    if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                        dropdown.classList.remove('show');
+                        button.classList.remove('active');
+                        document.removeEventListener('click', closeDropdown);
+                    }
+                });
+            }
+        }
+
+        // Close dropdowns on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                document.querySelectorAll('.nav-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
